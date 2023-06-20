@@ -4,26 +4,25 @@
                 :class="[`navbar-${theme}`, `bg-${theme}`]"
             >
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">WebSiteName</a>
+                    <a class="navbar-brand" href="#">FilmVuer</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                    <li v-for="(page, index) in pages" class="nav-item" :key="index">
+                    <li class="nav-item" :key="index">
                         
                         <div class="dropdown">
-                            <button class="dropbtn">Dropdown</button>
+                            <button class="dropbtn">Genres</button>
                             <div class="dropdown-content">
-                                <a href="#">Link 1</a>
-                                <a href="#">Link 2</a>
-                                <a href="#">Link 3</a>
+                                <a h
+                                ref="#" 
+                                v-for="(genre, index) in genres"
+                                :key="index"
+                                @:click.prevent="sortByGenre(genre.id)"
+                                >
+                                {{ genre.name }}
+                                </a>
                             </div>
                         </div>
-                        <!-- <a 
-                        class="nav-link" 
-                        :class="{active: activePage === index}"
-                        :href="page.link.url"
-                        :title="`this link will take you to the ${page.link.text} page`"
-                        @:click.prevent="navLinkClick(index)"
-                        >{{ page.link.text }}</a> -->
+
                     </li>
 
                 </ul>
@@ -40,24 +39,21 @@
 </template>
 
 <script>
-import NavbarLink from './NavbarLink.vue';
+
 
 export default {
-    components: {
-                NavbarLink
+    props: ['navLinkClick', 'genres', 'sortByGenre'],
+    data() {
+        return {
+            theme: 'light',
+        };
     },
-            props: ['pages', 'activePage', 'navLinkClick'],
-            data() {
-                return {
-                    theme: 'light'
-                };
-            },
-            methods: 
-            {
-                changeTheme() {
-                    this.theme = this.theme == 'light' ? 'dark' : 'light';
-                }
-            }
+    methods: 
+    {
+        changeTheme() {
+            this.theme = this.theme == 'light' ? 'dark' : 'light';
+        },
+    }
         }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h1 class="page-title">{{page.pageTitle}}</h1>
+        <h1 class="page-title">FilmVuer</h1>
         <div class="posts-container">
             <FilmCard
             v-for="(post, index) in posts"
@@ -14,27 +14,13 @@
 </template>
 
 <script>
-import axios from 'axios';
+
 import FilmCard from './FilmCard.vue';
 
 export default {
     components: {
         FilmCard
     },
-    props: ['page'],
-    data(){
-        return {
-            posts: [],
-            movieTitle: ''
-        }
-    },
-    mounted(){
-        axios.get('https://localhost:7216/api/movies/all')
-        .then(response => {
-            this.posts = response.data;
-            
-            console.log(response);
-        })
-    }    
+    props: ['page', 'posts'],
 }
 </script>
