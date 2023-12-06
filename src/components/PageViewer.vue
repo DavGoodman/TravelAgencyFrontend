@@ -1,13 +1,14 @@
 <template>
     <div class="container">
-        <h1 class="page-title">FilmVuer</h1>
-        <div class="posts-container">
-            <FilmCard
-            v-for="(post, index) in posts"
-            :key="index"
-            :post="post">
+        <h1 class="page-title">MyTravel</h1>
+        <VatVerification v-if="vat"> </VatVerification>
+        <div class="posts-container" v-else>
+            <InfoCard
+                v-for="(post, index) in posts"
+                :key="index"
+                :post="post">
 
-            </FilmCard>
+            </InfoCard>
         </div>
         
     </div>
@@ -15,12 +16,17 @@
 
 <script>
 
-import FilmCard from './FilmCard.vue';
+import InfoCard from './InfoCard.vue';
+import VatVerification from './VatVerification.vue';
 
 export default {
     components: {
-        FilmCard
+        InfoCard,
+        VatVerification
     },
-    props: ['page', 'posts'],
+    props: ['page', 'posts', "vat"],
+    methods:{
+        
+    }
 }
 </script>

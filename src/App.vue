@@ -1,13 +1,16 @@
 <template>
     <navbar 
         :nav-link-click="(index) => activePage = index" 
-        :genres="genres"
-        :sort-by-genre="sortByGenre"
+        :changeVat="changeVat"
+        :setPosts = "setPosts"
     >
     </navbar>
 
+
     <page-viewer 
+
         :posts="posts"
+        :vat="vat"
         >
     </page-viewer>
 
@@ -21,40 +24,29 @@ import axios from 'axios';
 export default {
     components: {
         Navbar,
-        PageViewer
+        PageViewer,
     },
     data() 
     {
         return {
             posts : [],
-            genres : []
+            vat : false
         }
 
     },
-    mounted(){
-        axios.get('https://localhost:7216/api/movies/all')
-            .then(response => {
-                this.posts = response.data;
-
-        }),
-        axios.get('https://localhost:7216/api/genres/all')
-                .then(response => {
-                    this.genres = response.data;
-
-        })
-
-    },
     methods:{
-        sortByGenre(genreId){
-            console.log(genreId);
+        changeVat(bool){
+            console.log("vat cicked", bool);
+            this.vat = bool;
+        },
 
-            var rawGenres = JSON.parse(JSON.stringify(this.genres));
-
-            var newPosts = rawGenres
-                            .filter(genre => genre.id == genreId)
-                                .map(genre => genre.movies)[0];
-
-            this.posts = newPosts;
+        async setPosts(link){
+            console.log(link);
+            await axios.get(link)
+                .then(response => {
+                this.posts = response.data;
+                })
+            console.log(this.posts);
         }
     }
     
